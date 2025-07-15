@@ -28,6 +28,9 @@ class MainViewController: UIViewController {
   private let horizontalStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.axis = .horizontal
+    stackView.alignment = .center
+    stackView.distribution = .equalSpacing
+    stackView.spacing = 50
     stackView.translatesAutoresizingMaskIntoConstraints = false
     return stackView
   }()
@@ -45,13 +48,14 @@ class MainViewController: UIViewController {
     
     view.backgroundColor = .orange.withAlphaComponent(0.3)
     view.addSubview(timerLabel)
-    view.addSubview(startButton)
-    view.addSubview(pauseButton)
-    view.addSubview(resetButton)
+    view.addSubview(horizontalStackView)
+    //    view.addSubview(startButton)
+    //    view.addSubview(pauseButton)
+    //    view.addSubview(resetButton)
     
-//    horizontalStackView.addArrangedSubview(startButton)
-//    horizontalStackView.addArrangedSubview(pauseButton)
-//    horizontalStackView.addArrangedSubview(resetButton)
+    horizontalStackView.addArrangedSubview(startButton)
+    horizontalStackView.addArrangedSubview(pauseButton)
+    horizontalStackView.addArrangedSubview(resetButton)
     
     timerLabel.text = "00:00:00"
     startButton.setTitle("Start", for: .normal)
@@ -62,15 +66,17 @@ class MainViewController: UIViewController {
       timerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       timerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150),
       
-      startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
+//      startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//      startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
+//      
+//      pauseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//      pauseButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
+//      
+//      resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//      resetButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
       
-      pauseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      pauseButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
-      
-      resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      resetButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
-      
+      horizontalStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      horizontalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
     ])
   }
   
@@ -106,13 +112,13 @@ class MainViewController: UIViewController {
   }
   
   @objc func updateTimer() {
-    DispatchQueue.main.async {
-      self.timerLabel.text = "\(self.remaningSecond)"
-    }
-    remaningSecond-=1
-    guard remaningSecond <= 0 else { return }
-    popUpAlert(message: "Timer is over")
-    pauseTimer()
+      if remaningSecond > 0 {
+          remaningSecond -= 1
+          timerLabel.text = "\(remaningSecond)"
+      } else {
+          pauseTimer()
+          popUpAlert(message: "Timer is over")
+      }
   }
   
   func popUpAlert(message: String) {
@@ -141,5 +147,20 @@ class MainViewController: UIViewController {
     }
   }
   
+  func formatTime(_ totalSeconds: Int) -> String {
+      let hours = totalSeconds / 3600
+      let minutes = (totalSeconds % 3600) / 60
+      let seconds = totalSeconds % 60
+      return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+  }
+  
 }
 
+
+/*
+ 
+ stackView.isLayoutMarginsRelativeArrangement = true
+ stackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+
+ 
+ */

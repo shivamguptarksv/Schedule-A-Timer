@@ -36,7 +36,7 @@ class CustomTimerViewController: UIViewController {
     
     setupAction()
     
-    view.backgroundColor = .lightGray.withAlphaComponent(0.3)
+    view.backgroundColor = .red.withAlphaComponent(0.1)
     view.addSubview(timerLabel)
     view.addSubview(startButton)
     view.addSubview(pauseButton)

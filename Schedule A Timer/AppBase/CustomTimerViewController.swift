@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  CustomTimerViewController.swift
 //  Schedule A Timer
 //
 //  Created by Saurabh Gupta on 15/07/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class CustomTimerViewController: UIViewController {
   
   var timer: Timer?
   var remaningSecond = 60
@@ -19,17 +19,10 @@ class MainViewController: UIViewController {
   
   private let timerLabel: UILabel = {
     let timerLabel = UILabel()
-    timerLabel.font = .systemFont(ofSize: 56.0, weight: .bold)
+    timerLabel.font = .systemFont(ofSize: 24.0, weight: .bold)
     timerLabel.translatesAutoresizingMaskIntoConstraints = false
     timerLabel.textColor = .label
     return timerLabel
-  }()
-  
-  private let horizontalStackView: UIStackView = {
-    let stackView = UIStackView()
-    stackView.axis = .horizontal
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-    return stackView
   }()
   
   private let startButton = UIButton(type: .system)
@@ -43,15 +36,11 @@ class MainViewController: UIViewController {
     
     setupAction()
     
-    view.backgroundColor = .orange.withAlphaComponent(0.3)
+    view.backgroundColor = .lightGray.withAlphaComponent(0.3)
     view.addSubview(timerLabel)
     view.addSubview(startButton)
     view.addSubview(pauseButton)
     view.addSubview(resetButton)
-    
-//    horizontalStackView.addArrangedSubview(startButton)
-//    horizontalStackView.addArrangedSubview(pauseButton)
-//    horizontalStackView.addArrangedSubview(resetButton)
     
     timerLabel.text = "00:00:00"
     startButton.setTitle("Start", for: .normal)
@@ -63,13 +52,13 @@ class MainViewController: UIViewController {
       timerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150),
       
       startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
+      startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
       
       pauseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      pauseButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
+      pauseButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
       
       resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      resetButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
+      resetButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0)
       
     ])
   }
@@ -142,4 +131,3 @@ class MainViewController: UIViewController {
   }
   
 }
-
